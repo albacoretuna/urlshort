@@ -1,7 +1,8 @@
 /**
  * Created by omid on 8.2.2015.
  * For Reaktor
- * This is a simplistic url shortener, I have a full fledge one working in www.gik.fi for my personal use.
+ * This is a simplistic url shortener,
+ * I have a full fledge one working in www.gik.fi for my personal use.
  */
 
 "use strict";
