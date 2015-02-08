@@ -1,40 +1,43 @@
 /**
  * Created by omid on 8.2.2015.
+ * For Reaktor
+ * This is a simplistic url shortener, I have a full fledge one working in www.gik.fi for my personal use.
  */
-var Hapi = require('hapi');
-var save = require('save');
-var rawlink = save('link');
 
-rawlink.on('create', function() {
-    console.log('New rawlink created');
-});
-rawlink.create({url: 'www.reaktor.fi'}, function(err, rawlink){
-    console.log(rawlink);
-});
-console.log(save.rawlink);
+"use strict";
+
+/* I've used Hapi for RESTfulness, developed by Wallmart,
+* it's so neat and well documented, making it superior to restify, or express.
+*/
+
+var Hapi = require('hapi');
+
+// Links come to this array, for simplicity I just used hte bare array index to retriev them
+var linkStore=[];
 
 var server = new Hapi.Server();
 server.connection({ port: 3000 });
 
+// Post request to /shorten
 server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply){
-        reply('Hi , world!');
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/{name}',
+    method: 'POST',
+    path: '/shorten/{link}',
     handler: function (request, reply) {
-        reply('Hi hi hi hi, ' + encodeURIComponent(request.params.name) + ' !');
-    },
-    config: {
-        description: 'Say hello!',
-        notes: 'The user parameter defaults to \'stranger\' if unspecified',
-        tags: ['api', 'shortener']
+        var recievedUrl = encodeURIComponent(request.params.link);
+        linkStore.push(recievedUrl);
+        reply((linkStore.length-1));
+
     }
+    });
+
+//
+server.route({
+    method: 'GET',
+    path: '/{id}',
+    handler: function (request, reply) {
+        reply( linkStore[encodeURIComponent(request.params.id)] + "\n");
+    }
+
 });
 
 server.start(function() {

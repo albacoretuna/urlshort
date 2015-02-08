@@ -22,5 +22,6 @@
   "homepage": "https://github.com/gikfi/urlshort",
   "dependencies": {
     "hapi": "^8.1.0",
+    "save": "^2.0.0"
   }
 }
