@@ -1,5 +1,5 @@
 # urlshort
-A URL shortener for Reaktor
+A dead simple URL shortener for Reaktor. It uses Hapi for REST handling. 
 
 Installation
 
