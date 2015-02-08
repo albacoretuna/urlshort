@@ -36,7 +36,13 @@ server.route({
     method: 'GET',
     path: '/{id}',
     handler: function (request, reply) {
-        reply( linkStore[encodeURIComponent(request.params.id)] + "\n");
+        if((request.params.id)< linkStore.length )
+        {
+            reply.redirect(linkStore[encodeURIComponent(request.params.id)], 'text/plane').permanent();
+        } else
+        {
+            reply().code(404);
+        }
     }
 
 });
